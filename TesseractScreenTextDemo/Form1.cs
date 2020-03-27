@@ -11,6 +11,7 @@ namespace TesseractScreenTextDemo
 		Bitmap m_bmp = null;
 		static readonly double[] Zooms = { 1.0, 2.0, 4.0 };
 		static readonly string[] Languages = { "eng", "chi_sim" };
+		TesseractEngine m_engine = null;
 
 		public Form1()
 		{
@@ -32,7 +33,16 @@ namespace TesseractScreenTextDemo
 		{
 			ddlScale.SelectedIndex = 0;
 			ddlLanguage.SelectedIndex = 0;
-		}		
+		}
+
+		private void ddlLanguage_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			this.Cursor = Cursors.WaitCursor;
+			this.Enabled = false;
+			m_engine = new TesseractEngine(AppDomain.CurrentDomain.BaseDirectory + "tessdata", Languages[ddlLanguage.SelectedIndex], EngineMode.Default);
+			this.Cursor = Cursors.Default;
+			this.Enabled = true;
+		}
 
 		private void ddlScale_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -47,8 +57,9 @@ namespace TesseractScreenTextDemo
 		private void btnRecognize_Click(object sender, EventArgs e)
 		{
 			this.Cursor = Cursors.WaitCursor;
-			TesseractEngine engine = new TesseractEngine(AppDomain.CurrentDomain.BaseDirectory + "tessdata", Languages[ddlLanguage.SelectedIndex], EngineMode.Default);
-			using (Page page = engine.Process(pictureBox1.Image as Bitmap))
+			this.Enabled = false;
+
+			using (Page page = m_engine.Process(pictureBox1.Image as Bitmap))
 			{
 				string text = page.GetText();
 				if (string.IsNullOrEmpty(text))
@@ -56,8 +67,10 @@ namespace TesseractScreenTextDemo
 					text = "<Unrecognizable>";
 				}
 				textBox1.Text = text;
+
 				this.Cursor = Cursors.Default;
-			}				
+				this.Enabled = true;
+			}
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)

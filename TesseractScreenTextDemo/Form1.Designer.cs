@@ -74,9 +74,10 @@
 			// 
 			this.textBox1.BackColor = System.Drawing.SystemColors.HighlightText;
 			this.textBox1.Location = new System.Drawing.Point(18, 205);
+			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(680, 20);
+			this.textBox1.Size = new System.Drawing.Size(680, 94);
 			this.textBox1.TabIndex = 2;
 			// 
 			// ddlScale
@@ -113,6 +114,7 @@
 			this.ddlLanguage.Name = "ddlLanguage";
 			this.ddlLanguage.Size = new System.Drawing.Size(167, 21);
 			this.ddlLanguage.TabIndex = 6;
+			this.ddlLanguage.SelectedIndexChanged += new System.EventHandler(this.ddlLanguage_SelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -125,13 +127,13 @@
 			// 
 			// btnRecognize
 			// 
+			this.btnRecognize.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnRecognize.Enabled = false;
-			this.btnRecognize.Location = new System.Drawing.Point(623, 150);
+			this.btnRecognize.Location = new System.Drawing.Point(583, 144);
 			this.btnRecognize.Name = "btnRecognize";
-			this.btnRecognize.Size = new System.Drawing.Size(75, 23);
+			this.btnRecognize.Size = new System.Drawing.Size(115, 30);
 			this.btnRecognize.TabIndex = 7;
 			this.btnRecognize.Text = "Recognize";
-			this.btnRecognize.UseVisualStyleBackColor = true;
 			this.btnRecognize.Click += new System.EventHandler(this.btnRecognize_Click);
 			// 
 			// chkMono
@@ -149,7 +151,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(710, 239);
+			this.ClientSize = new System.Drawing.Size(717, 311);
 			this.Controls.Add(this.chkMono);
 			this.Controls.Add(this.btnRecognize);
 			this.Controls.Add(this.label4);
