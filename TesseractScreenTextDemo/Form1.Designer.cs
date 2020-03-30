@@ -38,6 +38,8 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnRecognize = new System.Windows.Forms.Button();
 			this.chkMono = new System.Windows.Forms.CheckBox();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.lblRect = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -147,11 +149,33 @@
 			this.chkMono.UseVisualStyleBackColor = true;
 			this.chkMono.CheckedChanged += new System.EventHandler(this.chkMono_CheckedChanged);
 			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Location = new System.Drawing.Point(560, 9);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(139, 13);
+			this.linkLabel1.TabIndex = 10;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "Click to capture from screen";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
+			// lblRect
+			// 
+			this.lblRect.AutoSize = true;
+			this.lblRect.Location = new System.Drawing.Point(71, 9);
+			this.lblRect.Name = "lblRect";
+			this.lblRect.Size = new System.Drawing.Size(45, 13);
+			this.lblRect.TabIndex = 11;
+			this.lblRect.Text = "<None>";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(717, 311);
+			this.Controls.Add(this.lblRect);
+			this.Controls.Add(this.linkLabel1);
 			this.Controls.Add(this.chkMono);
 			this.Controls.Add(this.btnRecognize);
 			this.Controls.Add(this.label4);
@@ -184,6 +208,8 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button btnRecognize;
 		private System.Windows.Forms.CheckBox chkMono;
+		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.Label lblRect;
 	}
 }
 

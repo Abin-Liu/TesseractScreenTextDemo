@@ -73,17 +73,29 @@ namespace TesseractScreenTextDemo
 			}
 		}
 
-		private void pictureBox1_Click(object sender, EventArgs e)
+		private void CaptureFromScreen()
 		{
-			Rectangle ScreenRect = Screen.PrimaryScreen.Bounds;
-			ScreenForm form = new ScreenForm();
-			form.ScreenBmp = MFGLib.BitmapHelper.CaptureScreen(0, 0, ScreenRect.Width, ScreenRect.Height);
-			form.ShowDialog(this);
+			ScreenCapture.MainForm form = new ScreenCapture.MainForm();
+			form.DPI = DPI;
+			if (form.ShowDialog(this) != DialogResult.OK)
+			{
+				return;
+			}
 
-			Rectangle rect = form.BoundRect;
-			m_bmp = MFGLib.BitmapHelper.CaptureScreen(rect.X, rect.Y, rect.Width, rect.Height, DPI);			
+			m_bmp = form.CapturedBmp;
 			UpdateBitmap();
 			btnRecognize.Enabled = m_bmp != null;
-		}		
+			lblRect.Text = form.CapturedRect.ToString();
+		}
+
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+			CaptureFromScreen();
+		}
+
+		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			CaptureFromScreen();
+		}
 	}
 }
