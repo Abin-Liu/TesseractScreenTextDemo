@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScreenCapture;
 using Tesseract;
 
 namespace TesseractScreenTextDemo
@@ -75,17 +76,16 @@ namespace TesseractScreenTextDemo
 
 		private void CaptureFromScreen()
 		{
-			ScreenCapture.MainForm form = new ScreenCapture.MainForm();
-			form.DPI = DPI;
-			if (form.ShowDialog(this) != DialogResult.OK)
+			CaptureResult result = CaptureAgent.Capture(DPI);			
+			if (result == null)
 			{
 				return;
 			}
 
-			m_bmp = form.CapturedBmp;
+			m_bmp = result.Image;
 			UpdateBitmap();
 			btnRecognize.Enabled = m_bmp != null;
-			lblRect.Text = form.CapturedRect.ToString();
+			lblRect.Text = result.Rect.ToString();
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
