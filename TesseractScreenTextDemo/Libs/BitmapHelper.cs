@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace MFGLib
 {	
@@ -147,34 +148,77 @@ namespace MFGLib
 			}
 
 			return newBmp;
-		}
+		}		
 
 		/// <summary>
-		/// 将图像转为黑白
+		/// 图像灰度化
 		/// </summary>
-		/// <param name="bmp">源图像</param>
+		/// <param name="bmp">源图像</param>		
 		/// <returns>操作成功返回新图像，失败返回null</returns>
-		public static Bitmap Mono(Bitmap bmp)
+		public static Bitmap Greyscale(Bitmap bmp)
 		{
 			if (bmp == null)
 			{
 				return null;
 			}
 
-			Bitmap newBmp = new Bitmap(bmp);			
-			for (int y = 0; y < newBmp.Height; y++)
+			bmp = new Bitmap(bmp);
+			int width = bmp.Width;
+			int height = bmp.Height;
+
+			for (int y = 0; y < height; y++)
 			{
-				for (int x = 0; x < newBmp.Width; x++)
+				for (int x = 0; x < width; x++)
 				{
-					Color c = newBmp.GetPixel(x, y);
+					Color c = bmp.GetPixel(x, y);
 					int rgb = (int)Math.Round(0.299 * c.R + 0.587 * c.G + 0.114 * c.B);
-					newBmp.SetPixel(x, y, Color.FromArgb(rgb, rgb, rgb));
+					c = Color.FromArgb(rgb, rgb, rgb);
+					bmp.SetPixel(x, y, c);
 				}
 			}
 
-			return newBmp;
-		}		
-		
+			return bmp;
+		}
+
+		/// <summary>
+		/// 图像二值化
+		/// </summary>
+		/// <param name="bmp">源图像</param>
+		/// <param name="threshold">二值化亮度阈值，小于此值设为黑色，大于等于此值设为白色，默认为0.72</param>
+		/// <returns>操作成功返回新图像，失败返回null</returns>
+		public static Bitmap Binarisation(Bitmap bmp, double threshold = 0.72)
+		{
+			if (bmp == null)
+			{
+				return null;
+			}
+
+			bmp = new Bitmap(bmp);
+			int width = bmp.Width;
+			int height = bmp.Height;
+
+			for (int y = 0; y < height; y++)
+			{
+				for (int x = 0; x < width; x++)
+				{
+					Color c = bmp.GetPixel(x, y);
+					double brightness = c.GetBrightness();
+					if (brightness < threshold)
+					{
+						c = Color.Black;
+					}
+					else
+					{
+						c = Color.White;
+					}
+
+					bmp.SetPixel(x, y, c);
+				}
+			}
+
+			return bmp;
+		}
+
 		[DllImport("user32.dll")]
 		extern static bool ClientToScreen(IntPtr hwnd, out Point lpPoint);
 

@@ -21,10 +21,11 @@ namespace TesseractScreenTextDemo
 
 		void UpdateBitmap()
 		{
-			Bitmap bmp = MFGLib.BitmapHelper.Resize(m_bmp, Zooms[ddlScale.SelectedIndex]);
-			if (chkMono.Checked)
+			Bitmap bmp = MFGLib.BitmapHelper.Resize(m_bmp, Zooms[ddlScale.SelectedIndex]);		
+
+			if (chkDenoise.Checked)
 			{
-				bmp = MFGLib.BitmapHelper.Mono(bmp);
+				bmp = MFGLib.BitmapHelper.Binarisation(bmp);
 			}
 
 			pictureBox1.Image = bmp;
@@ -53,7 +54,12 @@ namespace TesseractScreenTextDemo
 		private void chkMono_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateBitmap();
-		}		
+		}
+
+		private void chkDenoise_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateBitmap();
+		}
 
 		private void btnRecognize_Click(object sender, EventArgs e)
 		{
@@ -96,6 +102,6 @@ namespace TesseractScreenTextDemo
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			CaptureFromScreen();
-		}
+		}		
 	}
 }
