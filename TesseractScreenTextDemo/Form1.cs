@@ -25,7 +25,7 @@ namespace TesseractScreenTextDemo
 
 			if (chkDenoise.Checked)
 			{
-				bmp = MFGLib.BitmapHelper.Binarisation(bmp);
+				bmp = MFGLib.BitmapHelper.Binarisation(bmp, 0.5);
 			}
 
 			pictureBox1.Image = bmp;
